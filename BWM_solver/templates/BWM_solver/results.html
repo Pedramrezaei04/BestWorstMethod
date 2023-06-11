@@ -1,0 +1,16 @@
+{% load static %}
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <link rel="shortcut icon" href="{% static 'icon.ico' %}" type="image/x-icon">
+</head>
+
+<h2>Ranking of Weights (High to Low):</h2>
+<ul>
+  {% for key, value in weights|dictsortreversed:"value" %}
+    <li><strong>{{ key }}:</strong> {{ value }}</li>
+  {% endfor %}
+</ul>
+
+<p>Consistency Ratio: {{ consistency_ratio }}</p>
+
+<a href="{% url 'calculate' %}">Back</a>
