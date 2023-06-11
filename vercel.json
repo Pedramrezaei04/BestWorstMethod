@@ -1,13 +1,14 @@
 {
-    "builds": [{
+    "builds": [
+      {
         "src": "BWM_web/wsgi.py",
-        "use": "@vercel/python",
-        "config": { "maxLambdaSize": "15mb" }
-    }],
+        "use": "@vercel/python"
+      }
+    ],
     "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "BWM_web/wsgi.py"
-        }
+      {
+        "src": "/(.*)",
+        "dest": "BWM_web/wsgi.py"
+      }
     ]
 }
