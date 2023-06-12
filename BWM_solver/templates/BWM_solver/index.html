@@ -1,104 +1,18 @@
 {% load static %}
 {% load custom_filters %}
+{% include 'navbar.html' %}
+<!DOCTYPE html>
+<html>
 <head>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index_style.css' %}">
     <link rel="shortcut icon" href="{% static 'icon.ico' %}" type="image/x-icon">
+
+    <title>BWM Alpha3</title>
 </head>
-
-<form method="post" id="bwm-form">
-  {% csrf_token %}
-  {{ form.num_criteria }}
-
-  <div id="criteria-labels-container">
-    {% if form.num_criteria.value != "Select Number Of Criteria" %}
-      <h3>Criteria Labels:</h3>
-      {% with num_criteria=form.num_criteria.value|add:"0" %}
-        {% for i in num_criteria|custom_range %}
-          <input type="text" name="criteria_{{ i }}" id="criteria_{{ i }}" required>
-          <br>
-        {% endfor %}
-      {% endwith %}
-    {% endif %}
+<body>
+  <div class="main-content">
+    <h1>The Official Best-Worst Method Application</h1>
   </div>
 
-  {{ form.best_values }}
-  {{ form.worst_values }}
-
-  <button type="submit" id="calculate-button">Calculate Weights</button>
-</form>
-  
-<div id="results-container" style="display: none;">
-  <h2>Ranking of Weights (High to Low):</h2>
-  <ul id="weights-list"></ul>
-  <p>Consistency Ratio: <span id="consistency-ratio"></span></p>
-</div>
-  
-<script>
-  // Handle changing the number of criteria
-  const numCriteriaSelect = document.getElementById('id_num_criteria');
-  const criteriaLabelsContainer = document.getElementById('criteria-labels-container');
-
-  numCriteriaSelect.addEventListener('change', function() {
-    const numCriteria = parseInt(this.value);
-    criteriaLabelsContainer.innerHTML = ''; // Clear existing input boxes
-
-    if (numCriteria > 0) {
-      const labelsHeading = document.createElement('h3');
-      labelsHeading.textContent = 'Criteria Labels:';
-      criteriaLabelsContainer.appendChild(labelsHeading);
-
-      for (let i = 0; i < numCriteria; i++) {
-        const input = document.createElement('input');
-        input.type = 'text';
-        input.name = `criteria_${i}`;
-        input.id = `criteria_${i}`;
-        input.required = true;
-
-        const br = document.createElement('br');
-
-        criteriaLabelsContainer.appendChild(input);
-        criteriaLabelsContainer.appendChild(br);
-      }
-    }
-  });
-</script>
-
-  <script>
-    // Handle form submission using AJAX
-    document.getElementById('bwm-form').addEventListener('submit', function(event) {
-      event.preventDefault(); // Prevent default form submission
-  
-      // Retrieve the form data
-      const form = event.target;
-      const formData = new FormData(form);
-  
-      // Send the form data to the server
-      fetch("{% url 'calculate' %}", {
-        method: 'POST',
-        body: formData,
-      })
-        .then(response => response.json())
-        .then(data => {
-          // Update the UI with the calculated weights and consistency ratio
-          const weightsList = document.getElementById('weights-list');
-          const consistencyRatio = document.getElementById('consistency-ratio');
-  
-          weightsList.innerHTML = ''; // Clear the weights list
-  
-          // Populate the weights list
-          for (const [key, value] of Object.entries(data.weights)) {
-            const listItem = document.createElement('li');
-            listItem.textContent = `${key}: ${value}`;
-            weightsList.appendChild(listItem);
-          }
-  
-          consistencyRatio.textContent = data.consistency_ratio;
-  
-          // Show the results container
-          const resultsContainer = document.getElementById('results-container');
-          resultsContainer.style.display = 'block';
-        })
-        .catch(error => console.error(error));
-    });
-  </script>
-  
+</body>
+</html>

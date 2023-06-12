@@ -7,6 +7,10 @@ def index(request):
     form = BWMForm()
     return render(request, 'BWM_solver/index.html', {'form': form})
 
+def solver(request):
+    form = BWMForm()
+    return render(request, 'BWM_solver/solver.html', {'form': form})
+
 def calculate(request):
     if request.method == 'POST':
         data = request.POST

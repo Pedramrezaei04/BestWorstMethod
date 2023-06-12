@@ -1,0 +1,80 @@
+{% load static %}
+{% load custom_filters %}
+{% include 'navbar.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <link rel="shortcut icon" href="{% static 'icon.ico' %}" type="image/x-icon">
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+    <title>BWM Solver a3</title>
+</head>
+<body class="main-content">
+    <div>
+        <!-- Code for the main solving element -->
+        <form method="post" id="bwm-form">
+            {% csrf_token %}
+            {{ form.num_criteria }}
+            <div class="calculator">
+                <div id="criteria-labels-container">
+                    {% if form.num_criteria.value != "Select Number Of Criteria" %}
+                        {% with num_criteria=form.num_criteria.value|add:"0" %}
+                            {% for i in num_criteria|custom_range %}
+                                <input type="text" name="criteria_{{ i }}" id="criteria_{{ i }}" required><br>
+                            {% endfor %}
+                        {% endwith %}
+                    {% endif %}
+                </div>
+    
+                <div id="compared-values-container">
+                    {% if form.num_criteria.value != "Select Number Of Criteria" %}
+                        <div id="compared-best-values">
+                            {% with num_criteria=form.num_criteria.value|add:"0" %}
+                                {% for i in num_criteria|custom_range %}
+                                    <input type="text" name="compared2best_{{ i }}" id="compared2best_{{ i }}" required><br>
+                                {% endfor %}
+                            {% endwith %}
+                        </div>
+    
+                        <div id="compared-worst-values">
+                            {% with num_criteria=form.num_criteria.value|add:"0" %}
+                                {% for i in num_criteria|custom_range %}
+                                    <input type="text" name="compared2worst_{{ i }}" id="compared2worst_{{ i }}" required><br>
+                                {% endfor %}
+                            {% endwith %}
+                        </div>
+                    {% endif %}
+                </div>
+    
+                <button type="submit" style="--c" id="calculate-button" class="hidden">Calculate Weights</button>
+            </div>
+        </form>
+    </div> 
+    <div id="results-container" style="display:none">
+        <h2>Ranking of Weights (High to Low):</h2>
+        <ul id="weights-list"></ul>
+        <p>Consistency Ratio: <span id="consistency-ratio"></span></p>
+    </div>
+  
+    <script src="{% static 'js/criteria.js' %}"></script>
+    <script src="{% static 'js/form_submission.js' %}"></script>
+    <script>
+        const dropdowns = document.querySelectorAll('.criteria-dropdown');
+        
+        dropdowns.forEach((dropdown) => {
+            dropdown.addEventListener('change', function() {
+                const selectedOption = this.options[this.selectedIndex];
+                if (selectedOption.value !== "Select Number Of Criteria") {
+                    this.classList.add('shrink');
+                } else {
+                    this.classList.remove('shrink');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
