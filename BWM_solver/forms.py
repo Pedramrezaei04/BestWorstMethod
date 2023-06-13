@@ -8,9 +8,7 @@ class BWMForm(forms.Form):
             ("6", "6"), ("7", "7"), ("8", "8"),
             ("9", "9")
         ],
-        widget=forms.Select(attrs={'class': 'criteria-dropdown'})  # Here is where you add the class
+        widget=forms.Select(attrs={'class': 'criteria-dropdown', 'id': 'id_num_criteria'})
     )
-    criteria_labels = forms.CharField(widget=forms.Textarea(attrs={'rows': '5'}))  # Update widget to display multiple rows
-    best_values = forms.CharField(widget=forms.Textarea)
-    worst_values = forms.CharField(widget=forms.Textarea)
+
 

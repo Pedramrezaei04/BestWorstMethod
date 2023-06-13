@@ -64,6 +64,14 @@ button:active {
   background-color: var(--c);
   color: #f8f4e3;
 }
+.bw-select {
+  font-size: 1em;
+  text-align: center;
+  padding: 3px;
+  border-radius: 4px;
+  border: 3px solid #229091; 
+
+}
 
 .criteria-dropdown {
   font-size: 1.5em;

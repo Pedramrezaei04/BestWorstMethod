@@ -1,12 +1,11 @@
-// Handle form submission using AJAX
-
-document.getElementById('bwm-form').addEventListener('submit', function(event) {
+function initializeFormSubmission(calculateUrl) {
+  document.getElementById('bwm-form').addEventListener('submit', function(event) {
     event.preventDefault();
   
     const form = event.target;
     const formData = new FormData(form);
   
-    fetch("{% url 'calculate' %}", {
+    fetch(calculateUrl, {
       method: 'POST',
       body: formData,
     })
@@ -30,4 +29,4 @@ document.getElementById('bwm-form').addEventListener('submit', function(event) {
     })
     .catch(error => console.error(error));
   });
-  
+}
