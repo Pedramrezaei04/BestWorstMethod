@@ -1,17 +1,25 @@
 {% load static %}
 {% load custom_filters %}
-{% include 'navbar.html' %}
 <!DOCTYPE html>
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="{% static 'css/index_style.css' %}">
     <link rel="shortcut icon" href="{% static 'icon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'css/nav_style.css' %}">
 
     <title>BWM Alpha6</title>
 </head>
 <body>
-  <div class="main-content">
-    <h1>The Official Best-Worst Method Application</h1>
+  <div class="background-one">
+    <div class="link-container">
+      <a class="link-one" href="{% url 'index' %}">About</a>
+    </div>
+  </div>
+  <div class="background-two link-container">
+    <a class="link-two" href="{% url 'solver' %}">Solver</a>
+  </div>
+  <div class="background-three link-container">
+    <a class="link-three" href="{% url 'index' %}">Documentation</a>
   </div>
 
 </body>
