@@ -166,7 +166,7 @@ body {
   }
   
   .link-three {
-    color: #42200f;
+    color: #7200ac;
   }
   
   .link-three::after {
@@ -192,7 +192,7 @@ body {
       20% 20%
     );
   
-    background-color: #eb7132;
+    background-color: #7200ac;
   }
   
   .link-three:hover::after {
@@ -222,7 +222,7 @@ body {
       80% 80%
     );
   
-    background-color: #eb7132;
+    background-color: #7200ac;
   }
   
   .link-three:hover::before {
